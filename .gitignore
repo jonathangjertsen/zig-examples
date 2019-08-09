@@ -1,0 +1,9 @@
+# Generated artifacts
+*.def
+*.lib
+*.exe
+*.obj
+*.pdb
+
+# Seems like a cache
+zig-cache
