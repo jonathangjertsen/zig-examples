@@ -4,7 +4,12 @@ const warn = std.debug.warn;
 
 // This is main.
 pub fn main() void {
-    // Integer
-    const integer: i32 = 1;
-    warn("Integer: {}\n", integer);
+    // Signed integer
+    const signed_int: i32 = 9 - 7;
+    warn("Integer: {}\n", signed_int);
+
+    // Unsigned integer
+    var unsigned_int: u32 = 1;
+    unsigned_int -= 9;
+    warn("Unsigned integer: {}\n", unsigned_int);
 }

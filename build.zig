@@ -1,12 +1,16 @@
 // Example of building.
-const Builder = @import("std").build.Builder;
+const std = @import("std");
+const Builder = std.build.Builder;
+const fmt = std.fmt;
 
-pub fn buildSingle(builder: *Builder, exec_name: []const u8, src_path: []const u8, run_step_name: []const u8, run_step_doc: []const u8) void {
+pub fn buildSimple(builder: *Builder, name: []const u8) void {
+    var buffer: [100]u8 = undefined;
+
     // Release options
     const mode = builder.standardReleaseOptions();
 
     // Create the executable
-    const exe = builder.addExecutable(exec_name, src_path);
+    const exe = builder.addExecutable(name, builder.fmt("src/{}.zig", name));
 
     // Set build mode to release options
     exe.setBuildMode(mode);
@@ -21,13 +25,18 @@ pub fn buildSingle(builder: *Builder, exec_name: []const u8, src_path: []const u
     run_cmd.step.dependOn(builder.getInstallStep());
 
     // Create a step to run?
-    const run_step = builder.step(run_step_name, run_step_doc);
+    const run_step = builder.step(builder.fmt("run-{}", name), builder.fmt("Run the {} example", name));
 
     // Make the run step depend on the run command?
     run_step.dependOn(&run_cmd.step);
 }
 
 pub fn build(builder: *Builder) void {
-    buildSingle(builder, "hello", "src/hello.zig", "run-hello", "Run the hello app");
-    buildSingle(builder, "integers", "src/integers.zig", "run-integers", "Run the integers app");
+    buildSimple(builder, "hello");
+    buildSimple(builder, "integers");
+    buildSimple(builder, "booleans");
+    buildSimple(builder, "floats");
+    buildSimple(builder, "structs");
+    buildSimple(builder, "optionals");
+    buildSimple(builder, "strings");
 }
