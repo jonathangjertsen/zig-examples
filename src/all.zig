@@ -9,6 +9,7 @@ const optionals = @import("optionals.zig");
 const strings = @import("strings.zig");
 const structs = @import("structs.zig");
 const threads = @import("threads.zig");
+const vectors = @import("vectors.zig");
 
 pub fn main() !void {
     hello.main();
@@ -17,6 +18,7 @@ pub fn main() !void {
     floats.main();
     structs.main();
     optionals.main();
+    vectors.main();
     try strings.main();
     try threads.main();
 }
