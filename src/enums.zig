@@ -9,7 +9,7 @@ const Color = enum(i8) {
 
     pub fn isPrimaryColor(color: Color) bool {
         switch (color) {
-            Color.Black => return false,
+            .Black => return false,
             else => return true,
         }
     }
@@ -22,8 +22,8 @@ pub fn main() void {
 pub fn enumExample() void {
     const black: Color = Color.Black;
     const red: Color = Color.Red;
-    const green: Color = Color.Green;
-    const blue: Color = Color.Blue;
+    const green: Color = .Green;
+    const blue: Color = .Blue;
 
     warn("\nExample of using an enum.\n");
     warn("Number of colors: {}\n", @intCast(u8, @memberCount(Color)));
