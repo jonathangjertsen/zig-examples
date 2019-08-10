@@ -8,6 +8,7 @@ const hello = @import("hello.zig");
 const optionals = @import("optionals.zig");
 const strings = @import("strings.zig");
 const structs = @import("structs.zig");
+const threads = @import("threads.zig");
 
 pub fn main() !void {
     hello.main();
@@ -15,6 +16,7 @@ pub fn main() !void {
     integers.main();
     floats.main();
     structs.main();
-    try strings.main();
     optionals.main();
+    try strings.main();
+    try threads.main();
 }

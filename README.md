@@ -9,7 +9,8 @@ I hope it's useful for others stumbling across this very new shiny thing, but be
 * Example source is in the `/src` directory.
 * There is also a build script in `build.zig`.
 * Examples can be run with `zig build run-integers`, `zig build run-structs`, etc.
-* There is also `zig build run-all` which runs all examples at once. `src/all.zig` also servers as an example of how to import local stuff.
+* There is also `zig build run-all` which runs all examples at once. `src/all.zig` also servers as an example of how to import local stuff
+* All examples here are working. If I don't get something to work, it's in OBSERVATIONS.md.
 
 ## Code style
 
