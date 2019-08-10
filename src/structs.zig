@@ -1,22 +1,25 @@
-// Examples of struct usage.
 const std = @import("std");
 const warn = std.debug.warn;
 
-/// Struct definition
-const TupleXY = struct {
+const ExampleStruct = struct {
     x: i32,
     y: i32,
 
-    pub fn zero() TupleXY {
-        return TupleXY{
+    pub fn zero() ExampleStruct {
+        return ExampleStruct{
             .x = 0,
             .y = 0,
         };
     }
 };
 
-// This is main.
 pub fn main() void {
-    const zero = TupleXY.zero();
-    warn("Zeroed TupleXY: {}\n", zero);
+    structCreationExample();
+}
+
+pub fn structCreationExample() void {
+    const zero: ExampleStruct = ExampleStruct.zero();
+
+    warn("\nExample of struct creation.\n");
+    warn("Zeroed ExampleStruct: {}\n", zero);
 }

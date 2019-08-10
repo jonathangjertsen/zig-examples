@@ -1,14 +1,14 @@
 // Example of building.
 const std = @import("std");
-const Builder = std.build.Builder;
+const builtin = @import("builtin");
 const fmt = std.fmt;
 
-pub fn buildSimple(builder: *Builder, name: []const u8) void {
+pub fn buildSimple(builder: *std.build.Builder, name: []const u8) void {
     // Release options
-    const mode = builder.standardReleaseOptions();
+    const mode: builtin.Mode = builder.standardReleaseOptions();
 
     // Create the executable
-    const exe = builder.addExecutable(name, builder.fmt("src/{}.zig", name));
+    const exe: *std.build.LibExeObjStep = builder.addExecutable(name, builder.fmt("src/{}.zig", name));
 
     // Set build mode to release options
     exe.setBuildMode(mode);
@@ -17,19 +17,21 @@ pub fn buildSimple(builder: *Builder, name: []const u8) void {
     exe.install();
 
     // Create a command to run the executable
-    const run_cmd = exe.run();
+    const run_cmd: *std.build.RunStep = exe.run();
 
     // Make the run command depend on the generic install step?
-    run_cmd.step.dependOn(builder.getInstallStep());
+    const builder_install_step: *std.build.Step = builder.getInstallStep();
+    run_cmd.step.dependOn(builder_install_step);
 
     // Create a step to run?
-    const run_step = builder.step(builder.fmt("run-{}", name), builder.fmt("Run the {} example", name));
+    const run_step: *std.build.Step = builder.step(builder.fmt("run-{}", name), builder.fmt("Run the {} example", name));
 
     // Make the run step depend on the run command?
     run_step.dependOn(&run_cmd.step);
 }
 
-pub fn build(builder: *Builder) void {
+pub fn build(builder: *std.build.Builder) void {
+    buildSimple(builder, "all");
     buildSimple(builder, "hello");
     buildSimple(builder, "integers");
     buildSimple(builder, "booleans");

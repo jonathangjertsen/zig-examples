@@ -2,7 +2,6 @@
 const std = @import("std");
 const warn = std.debug.warn;
 
-// This is main.
 // We are using a function which can fail (out of memory).
 // No error handling yet, so we need to
 //     * add the exclamation point to the return type
@@ -17,6 +16,7 @@ pub fn compileTimeStringConcatExample() void {
     const concat_string: []const u8 = "compile-time concatenation!";
 
     const compile_time_concat_string: []const u8 = concatConstant(hello_string, concat_string);
+    warn("\nExample of compile-time string concatenation.\n");
     warn("Compile-time concatenated string: {}\n", compile_time_concat_string);
 }
 
@@ -39,6 +39,7 @@ pub fn runtimeStringConcatExample() !void {
     const runtime_concat_string: []u8 = try concatVariable(allocator_interface, hello_string, concat_string);
     defer allocator_interface.free(runtime_concat_string);
 
+    warn("\nExample of run-time string concatenation.\n");
     warn("Runtime concatenated string: {}\n", runtime_concat_string);
 }
 

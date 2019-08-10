@@ -1,10 +1,13 @@
-// Examples of float usage.
 const std = @import("std");
 const warn = std.debug.warn;
 
-// This is main.
 pub fn main() void {
-    // Signed integer
+    floatExample();
+}
+
+pub fn floatExample() void {
     const float: f32 = -1.23 + 83.1;
+
+    warn("\nExamples of using floats.\n");
     warn("Float: {}\n", float);
 }
