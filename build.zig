@@ -32,17 +32,18 @@ pub fn buildSimple(builder: *std.build.Builder, name: []const u8) void {
 
 pub fn build(builder: *std.build.Builder) void {
     buildSimple(builder, "all");
-    buildSimple(builder, "hello");
-    buildSimple(builder, "integers");
-    buildSimple(builder, "enums");
+    buildSimple(builder, "allocators");
     buildSimple(builder, "booleans");
-    buildSimple(builder, "floats");
-    buildSimple(builder, "embed");
-    buildSimple(builder, "structs");
-    buildSimple(builder, "optionals");
     buildSimple(builder, "control_flow");
     buildSimple(builder, "coroutines");
+    buildSimple(builder, "embed");
+    buildSimple(builder, "enums");
+    buildSimple(builder, "floats");
+    buildSimple(builder, "hello");
+    buildSimple(builder, "integers");
+    buildSimple(builder, "optionals");
     buildSimple(builder, "strings");
+    buildSimple(builder, "structs");
     buildSimple(builder, "threads");
     buildSimple(builder, "vectors");
 }

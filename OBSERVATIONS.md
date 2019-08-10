@@ -38,3 +38,4 @@ Questions:
 * In threads.zig, when calculating the next thread ID, it would be convenient with a static variable (either associated with the struct or from inside the init() function, like static in C). Can that be done?
 * Can I create a struct within a function? It fails when it tries to refer to its own type ("undeclared identifier").
 * Can I iterate over an enum?
+* Why does FixedBufferAllocator run out of memory when I expect it not to?
