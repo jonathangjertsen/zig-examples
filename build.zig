@@ -39,6 +39,7 @@ pub fn build(builder: *std.build.Builder) void {
     buildSimple(builder, "floats");
     buildSimple(builder, "structs");
     buildSimple(builder, "optionals");
+    buildSimple(builder, "control_flow");
     buildSimple(builder, "strings");
     buildSimple(builder, "threads");
     buildSimple(builder, "vectors");

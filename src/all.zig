@@ -9,6 +9,7 @@ const hello = @import("hello.zig");
 const optionals = @import("optionals.zig");
 const strings = @import("strings.zig");
 const structs = @import("structs.zig");
+const control_flow = @import("control_flow.zig");
 const threads = @import("threads.zig");
 const vectors = @import("vectors.zig");
 
@@ -19,6 +20,7 @@ pub fn main() !void {
     floats.main();
     enums.main();
     structs.main();
+    control_flow.main();
     optionals.main();
     vectors.main();
     try strings.main();
