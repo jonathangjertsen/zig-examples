@@ -3,8 +3,8 @@ const builtin = @import("builtin");
 const warn = std.debug.warn;
 
 const StructExample = struct {
-    x: i32,
-    y: i32,
+    x: i13,
+    y: i10,
 
     pub fn zero() StructExample {
         return StructExample{
@@ -39,6 +39,7 @@ pub fn structCreationExample() void {
 
     warn("\nExample of struct creation.\n");
     warn("Zeroed StructExample: {}\n", zero);
+    warn("Size of StructExample: {} bytes (corresponding packed struct would be 3 bytes)\n", @intCast(usize, @sizeOf(StructExample)));
 }
 
 pub fn packedStructExample() void {
@@ -48,5 +49,6 @@ pub fn packedStructExample() void {
     warn("\nExample of using a packed struct.\n");
     warn("Byte: {b}\n", @intCast(u8, bitfield_value)); // Cast due to compiler bug
     warn("Resulting bitfield: {}\n", bitfield);
-    warn("Bits of the bitfield after bit-casting to byet: {b}\n", @bitCast(u8, bitfield));
+    warn("Bits of the bitfield after bit-casting to byte: {b}\n", @bitCast(u8, bitfield));
+    warn("Size of PackedStructExample: {} bytes\n", @intCast(usize, @sizeOf(PackedStructExample)));
 }
