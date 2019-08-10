@@ -30,3 +30,4 @@ Questions:
 ## Things that were hard to figure out
 
 * How to do string interpolation!
+    * Explained extremely well in https://www.youtube.com/watch?v=WLJ_7lpBhys, not so much in the official documentation

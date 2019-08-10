@@ -4,8 +4,6 @@ const Builder = std.build.Builder;
 const fmt = std.fmt;
 
 pub fn buildSimple(builder: *Builder, name: []const u8) void {
-    var buffer: [100]u8 = undefined;
-
     // Release options
     const mode = builder.standardReleaseOptions();
 
