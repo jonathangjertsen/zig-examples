@@ -1,7 +1,12 @@
 const std = @import("std");
+const builtin = @import("builtin");
 const warn = std.debug.warn;
 
 pub fn main() void {
+    // https://ziglang.org/documentation/master/#setFloatMode
+    // Only affects this scope, so no need to think about what the float mode is in outer scope
+    @setFloatMode(builtin.FloatMode.Optimized);
+
     floatLiteralsExample();
     floatFormattingExample();
 }
