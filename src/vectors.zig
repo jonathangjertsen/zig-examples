@@ -16,7 +16,8 @@ pub fn vectorExample() void {
     const array_from_vector_2: [4]u8 = vector_2;
     const array_from_vector_sum: [4]u8 = vector_sum;
 
-    warn("Vector 1: {}\n", array_from_vector_1);
-    warn("Vector 2: {}\n", array_from_vector_2);
-    warn("Vector 1 + Vector 2: {}\n", array_from_vector_sum);
+    warn("\nExamples of using vectors.\n");
+    warn("vector_1: {}\n", array_from_vector_1);
+    warn("vector_2: {}\n", array_from_vector_2);
+    warn("vector_1 + vector_2: {}\n", array_from_vector_sum);
 }

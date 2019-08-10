@@ -30,6 +30,7 @@ pub fn threadExample() !void {
     const thread_1: *std.Thread = try std.Thread.spawn(context_1, threadCallback);
     const thread_2: *std.Thread = try std.Thread.spawn(context_2, threadCallback);
 
+    warn("\nExample using threads.\n");
     thread_1.wait();
     thread_2.wait();
 }
