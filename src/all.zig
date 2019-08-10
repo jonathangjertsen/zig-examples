@@ -3,6 +3,7 @@ const warn = std.debug.warn;
 
 const booleans = @import("booleans.zig");
 const enums = @import("enums.zig");
+const embed = @import("embed.zig");
 const floats = @import("floats.zig");
 const integers = @import("integers.zig");
 const hello = @import("hello.zig");
