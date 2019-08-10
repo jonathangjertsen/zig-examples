@@ -21,16 +21,17 @@ Questions:
 * When I do a run command, how much is built? Only what's needed?
 * Can I get the tests to run in the same way as the other programs?
 
-## Things to try out
+## Things that were hard to figure out
 
-* Assigning a const unsigned value to -1 gives a build-time error `error: cannot cast negative value -8 to unsigned integer type 'u32'`
-* Creating a const unsigned value and subtracting a larger unsigned value gives a build-time error: `error: operation caused overflow: const unsigned_int: u32 = 1 - big_int;` 
-* Creating a var unsigned value and subtracting a larger unsigned value gives a run-time error.
+* How to do string interpolation
+    * Explained extremely well in https://www.youtube.com/watch?v=WLJ_7lpBhys, not so much in the official documentation
+* How to format floats
+    * Deduced from source code (std/fmt.zig)
+* How to import another file
+    * Tried stuff until it worked
 
 ## Things that were hard to figure out
 
-* How to do string interpolation!
-    * Explained extremely well in https://www.youtube.com/watch?v=WLJ_7lpBhys, not so much in the official documentation
-* How to format floats
-* How to import another file
-* How to iterate over modules (wanted to iterate over them in `all.zig` and call their `main()` functions, got something about type having to be comptime).
+* How to iterate over imported modules (wanted to iterate over them in `all.zig` and call their `main()` functions, got something about type having to be comptime).
+* How to get C interop to work on my machine (something wrong with my setup? Enormous amounts of errors from `ldd`)
+* How to compile C files on my machine (something wrong with my setup? Enormous amounts of errors from `ldd`)
