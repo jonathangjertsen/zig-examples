@@ -37,13 +37,21 @@ pub fn runtimeStringConcatExample() !void {
     const concat_string: []const u8 = "run-time concatenation!";
 
     const runtime_concat_string: []u8 = try concatVariable(allocator_interface, hello_string, concat_string);
+    defer allocator_interface.free(runtime_concat_string);
+
     warn("Runtime concatenated string: {}\n", runtime_concat_string);
 }
 
-/// To concatenate strings that are not compile-time known, we need an allocator to
+/// To concatenate strings that are not compile-time known, we need an allocator.
+/// There is really no concept of "strings" as such in Zig itself, just raw bytes.
+/// Concatenating then means getting a big enough chunk of memory and copying the bytes
+/// from each argument one after the other. We don't know how long the caller needs the
+/// bytes we returned, so we should have a comment indicating that free() should be called.
 pub fn concatVariable(allocator: *std.mem.Allocator, a: []const u8, b: []const u8) ![]u8 {
     var result = try allocator.alloc(u8, a.len + b.len);
     std.mem.copy(u8, result, a);
     std.mem.copy(u8, result[a.len..], b);
     return result;
+
+    // There is no free here, so the caller is responsible for calling allocator.free() on the result!
 }
