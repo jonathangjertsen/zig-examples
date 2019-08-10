@@ -2,39 +2,26 @@ const std = @import("std");
 const builtin = @import("builtin");
 const warn = std.debug.warn;
 
-const StructExample = struct {
-    x: i13,
-    y: i10,
-
-    pub fn zero() StructExample {
-        return StructExample{
-            .x = 0,
-            .y = 0,
-        };
-    }
-};
-
-const PackedStructExample = packed struct {
-    five_bits: u5,
-    two_bits: u2,
-    one_bit: u1,
-
-    pub fn from_byte(byte: u8) PackedStructExample {
-        // This seems platform dependent.
-        return PackedStructExample{
-            .one_bit = @intCast(u1, (byte & 0b10000000) >> 7),
-            .two_bits = @intCast(u2, (byte & 0b01100000) >> 5),
-            .five_bits = @intCast(u5, (byte & 0b00011111)),
-        };
-    }
-};
-
 pub fn main() void {
     structCreationExample();
     packedStructExample();
 }
 
 pub fn structCreationExample() void {
+    comptime const StructExample = struct {
+        x: i13,
+        y: i10,
+
+        // We could have used StructExample instead of @This() if the
+        // struct was defined in the global scope.
+        pub fn zero() @This() {
+            return @This(){
+                .x = 0,
+                .y = 0,
+            };
+        }
+    };
+
     const zero: StructExample = StructExample.zero();
 
     warn("\nExample of struct creation.\n");
@@ -43,6 +30,20 @@ pub fn structCreationExample() void {
 }
 
 pub fn packedStructExample() void {
+    const PackedStructExample = packed struct {
+        five_bits: u5,
+        two_bits: u2,
+        one_bit: u1,
+
+        pub fn from_byte(byte: u8) @This() {
+            return @This(){
+                .one_bit = @intCast(u1, (byte & 0b10000000) >> 7),
+                .two_bits = @intCast(u2, (byte & 0b01100000) >> 5),
+                .five_bits = @intCast(u5, (byte & 0b00011111)),
+            };
+        }
+    };
+
     const bitfield_value: u8 = 0b10101011;
     const bitfield: PackedStructExample = PackedStructExample.from_byte(bitfield_value);
 
