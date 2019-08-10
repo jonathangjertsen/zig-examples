@@ -34,6 +34,7 @@ pub fn build(builder: *std.build.Builder) void {
     buildSimple(builder, "all");
     buildSimple(builder, "hello");
     buildSimple(builder, "integers");
+    buildSimple(builder, "enums");
     buildSimple(builder, "booleans");
     buildSimple(builder, "floats");
     buildSimple(builder, "structs");

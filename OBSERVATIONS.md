@@ -37,3 +37,4 @@ Questions:
 * How to compile C files on my machine (something wrong with my setup? Enormous amounts of errors from `ldd`)
 * In threads.zig, when calculating the next thread ID, it would be convenient with a static variable (either associated with the struct or from inside the init() function, like static in C). Can that be done?
 * Can I create a struct within a function? It fails when it tries to refer to its own type ("undeclared identifier").
+* Can I iterate over an enum?
