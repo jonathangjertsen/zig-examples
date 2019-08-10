@@ -10,6 +10,7 @@ const optionals = @import("optionals.zig");
 const strings = @import("strings.zig");
 const structs = @import("structs.zig");
 const control_flow = @import("control_flow.zig");
+const coroutines = @import("coroutines.zig");
 const threads = @import("threads.zig");
 const vectors = @import("vectors.zig");
 
@@ -23,6 +24,7 @@ pub fn main() !void {
     control_flow.main();
     optionals.main();
     vectors.main();
+    try coroutines.main();
     try strings.main();
     try threads.main();
 }

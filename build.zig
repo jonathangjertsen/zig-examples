@@ -40,6 +40,7 @@ pub fn build(builder: *std.build.Builder) void {
     buildSimple(builder, "structs");
     buildSimple(builder, "optionals");
     buildSimple(builder, "control_flow");
+    buildSimple(builder, "coroutines");
     buildSimple(builder, "strings");
     buildSimple(builder, "threads");
     buildSimple(builder, "vectors");
