@@ -31,3 +31,6 @@ Questions:
 
 * How to do string interpolation!
     * Explained extremely well in https://www.youtube.com/watch?v=WLJ_7lpBhys, not so much in the official documentation
+* How to format floats
+* How to import another file
+* How to iterate over modules (wanted to iterate over them in `all.zig` and call their `main()` functions, got something about type having to be comptime).
