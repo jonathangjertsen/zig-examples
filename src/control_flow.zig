@@ -3,54 +3,40 @@ const warn = std.debug.warn;
 
 pub fn main() void {
     simpleWhileExample();
-    complexWhileExample();
-    labeledWhileExample();
+    continueExpressionExample();
 }
 
 pub fn simpleWhileExample() void {
-    warn("\nExample of a simple while loop\n");
+    warn("\nExample of a simple while loop to calculate the first 10 Fibonacci numbers.\n");
+    var f_nminus2: u32 = 0;
+    var f_nminus1: u32 = 1;
+    var f_n: u32 = 1;
+
     var i: usize = 0;
-    while (i < 2) {
-        warn("i: {} in loop body\n", i);
+    while (i < 10) {
+        warn("{} ", f_n);
+        f_n = f_nminus1 + f_nminus2;
+        f_nminus2 = f_nminus1;
+        f_nminus1 = f_n;
         i += 1;
-        break;
     }
-    warn("i: {} outside of loop\n", i);
+    warn("\n");
 }
 
-pub fn complexWhileExample() void {
-    warn("\nExample of using a while loop with lots of bells and whistles.\n");
+pub fn continueExpressionExample() void {
+    warn("\nSame example, with loop counter in a continue expression\n");
+    var f_nminus2: u32 = 0;
+    var f_nminus1: u32 = 1;
+    var f_n: u32 = 1;
+
     var i: usize = 0;
-    const loop_result: bool = while (i < 100) : ({
+    while (i < 10) : ({
         i += 1;
-        warn("i: {} in continue expression\n", i);
     }) {
-        i += 1;
-
-        if (i % 3 == 0) {
-            warn("i: {} before continue in loop body\n", i);
-            continue;
-        }
-
-        if (i > 10) {
-            warn("i: {} before break\n", i);
-            break true;
-        }
-
-        warn("i: {}, loop iteration completed\n", i);
-    } else false;
-    warn("Loop result: {}\n", loop_result);
-}
-
-pub fn labeledWhileExample() void {
-    warn("\nExample of using labelled while loops to break out from nested loops\n");
-    var i: usize = 0;
-    outer: while (true) {
-        warn("Entered outer loop\n");
-        inner: while (true) {
-            warn("Entered inner loop\n");
-            warn("Breaking out of outer loop\n");
-            break :outer;
-        }
+        warn("{} ", f_n);
+        f_n = f_nminus1 + f_nminus2;
+        f_nminus2 = f_nminus1;
+        f_nminus1 = f_n;
     }
+    warn("\n");
 }
