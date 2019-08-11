@@ -14,6 +14,7 @@ const optionals = @import("optionals.zig");
 const strings = @import("strings.zig");
 const structs = @import("structs.zig");
 const threads = @import("threads.zig");
+const time = @import("time.zig");
 const vectors = @import("vectors.zig");
 
 pub fn main() !void {
@@ -26,6 +27,7 @@ pub fn main() !void {
     structs.main();
     optionals.main();
     vectors.main();
+    try time.main();
     try coroutines.main();
     try strings.main();
     try threads.main();

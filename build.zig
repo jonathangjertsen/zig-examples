@@ -44,6 +44,7 @@ pub fn build(builder: *std.build.Builder) void {
     buildSimple(builder, "optionals");
     buildSimple(builder, "strings");
     buildSimple(builder, "structs");
+    buildSimple(builder, "time");
     buildSimple(builder, "threads");
     buildSimple(builder, "vectors");
 }
