@@ -3,11 +3,7 @@ const builtin = @import("builtin");
 const warn = std.debug.warn;
 
 const C = @cImport({
-    // See https://github.com/ziglang/zig/issues/515
-    //@cDefine("_NO_CRT_STDIO_INLINE", "1");
-    @cInclude("stdio.h");
     @cInclude("stdlib.h");
-    @cInclude("conio.h");
 });
 
 const PixelIndex: type = u32;
@@ -277,8 +273,13 @@ const Renderer = struct {
     }
 };
 
-pub fn printGame(game: *GameState) void {
+pub fn clearScreen() void {
     _ = C.system(c"cls");
+}
+
+pub fn printGame(game: *GameState) void {
+    clearScreen();
+
     warn("Snake\n");
     for (game.board.tiles) |row, row_number| {
         warn("+-");
