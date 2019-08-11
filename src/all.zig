@@ -9,6 +9,7 @@ const coroutines = @import("coroutines.zig");
 const embed = @import("embed.zig");
 const enums = @import("enums.zig");
 const floats = @import("floats.zig");
+const game = @import("game.zig");
 const hello = @import("hello.zig");
 const integers = @import("integers.zig");
 const optionals = @import("optionals.zig");
@@ -38,4 +39,5 @@ pub fn main() !void {
 
     // This hides a bug which causes the printf() statement to always come last...
     c_interop.main();
+    game.main();
 }

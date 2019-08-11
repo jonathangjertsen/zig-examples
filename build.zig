@@ -52,4 +52,5 @@ pub fn build(builder: *std.build.Builder) void {
     buildSimple(builder, "time");
     buildSimple(builder, "threads");
     buildSimple(builder, "vectors");
+    buildSimple(builder, "game");
 }
