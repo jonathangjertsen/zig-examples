@@ -31,25 +31,19 @@ pub fn structCreationExample() void {
 
 pub fn packedStructExample() void {
     const PackedStructExample = packed struct {
+        one_bit: u1,
         five_bits: u5,
         two_bits: u2,
-        one_bit: u1,
-
-        pub fn from_byte(byte: u8) @This() {
-            return @This(){
-                .one_bit = @intCast(u1, (byte & 0b10000000) >> 7),
-                .two_bits = @intCast(u2, (byte & 0b01100000) >> 5),
-                .five_bits = @intCast(u5, (byte & 0b00011111)),
-            };
-        }
     };
 
-    const bitfield_value: u8 = 0b10101011;
-    const bitfield: PackedStructExample = PackedStructExample.from_byte(bitfield_value);
+    const bitfield_value: u8 = 0b01111010;
+    //                                  ^ one_bit    = 0b0
+    //                             ^^^^^  five_bits  = 0b11101
+    //                           ^^       two_bits   = 0b01
+    const bitfield: PackedStructExample = @bitCast(PackedStructExample, bitfield_value);
 
     warn("\nExample of using a packed struct.\n");
     warn("Byte: {b}\n", @intCast(u8, bitfield_value)); // Cast due to compiler bug
     warn("Resulting bitfield: {}\n", bitfield);
-    warn("Bits of the bitfield after bit-casting to byte: {b}\n", @bitCast(u8, bitfield));
     warn("Size of PackedStructExample: {} bytes\n", @intCast(usize, @sizeOf(PackedStructExample)));
 }
