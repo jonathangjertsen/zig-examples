@@ -8,6 +8,10 @@ const C = @cImport({
 });
 
 pub fn main() void {
+    callCExample();
+}
+
+pub fn callCExample() void {
     warn("\nExample of calling a C function.\n");
     _ = C.printf(c"Hello, C!\n");
 }
