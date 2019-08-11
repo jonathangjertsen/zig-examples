@@ -42,6 +42,7 @@ pub fn build(builder: *std.build.Builder) void {
     buildSimple(builder, "hello");
     buildSimple(builder, "integers");
     buildSimple(builder, "optionals");
+    buildSimple(builder, "random");
     buildSimple(builder, "strings");
     buildSimple(builder, "structs");
     buildSimple(builder, "time");

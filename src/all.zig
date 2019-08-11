@@ -11,6 +11,7 @@ const floats = @import("floats.zig");
 const hello = @import("hello.zig");
 const integers = @import("integers.zig");
 const optionals = @import("optionals.zig");
+const random = @import("random.zig");
 const strings = @import("strings.zig");
 const structs = @import("structs.zig");
 const threads = @import("threads.zig");
@@ -27,6 +28,7 @@ pub fn main() !void {
     structs.main();
     optionals.main();
     vectors.main();
+    random.main();
     try time.main();
     try coroutines.main();
     try strings.main();
