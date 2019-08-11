@@ -10,6 +10,9 @@ pub fn buildSimple(builder: *std.build.Builder, name: []const u8) void {
     // Create the executable
     const exe: *std.build.LibExeObjStep = builder.addExecutable(name, builder.fmt("src/{}.zig", name));
 
+    // Link with C
+    exe.linkSystemLibrary("c");
+
     // Set build mode to release options
     exe.setBuildMode(mode);
 
@@ -34,6 +37,7 @@ pub fn build(builder: *std.build.Builder) void {
     buildSimple(builder, "all");
     buildSimple(builder, "allocators");
     buildSimple(builder, "booleans");
+    buildSimple(builder, "c_interop");
     buildSimple(builder, "control_flow");
     buildSimple(builder, "coroutines");
     buildSimple(builder, "embed");
