@@ -1,3 +1,7 @@
+# ⚠️ this repo is old ⚠️
+
+zig started 7 years ago and this repo is now 4 years old, these examples probably don't build anymore
+
 # Zig examples
 
 These are some examples that I'm writing for myself while I'm learning Zig.
