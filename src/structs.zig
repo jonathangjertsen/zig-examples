@@ -1,6 +1,6 @@
 const std = @import("std");
 const builtin = @import("builtin");
-const warn = std.debug.warn;
+const print = std.debug.print;
 
 pub fn main() void {
     structCreationExample();
@@ -8,7 +8,7 @@ pub fn main() void {
 }
 
 pub fn structCreationExample() void {
-    comptime const StructExample = struct {
+    const StructExample = struct {
         x: i13,
         y: i10,
 
@@ -24,9 +24,9 @@ pub fn structCreationExample() void {
 
     const zero: StructExample = StructExample.zero();
 
-    warn("\nExample of struct creation.\n");
-    warn("Zeroed StructExample: {}\n", zero);
-    warn("Size of StructExample: {} bytes (corresponding packed struct would be 3 bytes)\n", @intCast(usize, @sizeOf(StructExample)));
+    print("\nExample of struct creation.\n", .{});
+    print("Zeroed StructExample: {}\n", .{zero});
+    print("Size of StructExample: {} bytes (corresponding packed struct would be 3 bytes)\n", .{ @sizeOf(StructExample) });
 }
 
 pub fn packedStructExample() void {
@@ -40,10 +40,10 @@ pub fn packedStructExample() void {
     //                                  ^ one_bit    = 0b0
     //                             ^^^^^  five_bits  = 0b11101
     //                           ^^       two_bits   = 0b01
-    const bitfield: PackedStructExample = @bitCast(PackedStructExample, bitfield_value);
+    const bitfield: PackedStructExample = @bitCast(bitfield_value);
 
-    warn("\nExample of using a packed struct.\n");
-    warn("Byte: {b}\n", @intCast(u8, bitfield_value)); // Cast due to compiler bug
-    warn("Resulting bitfield: {}\n", bitfield);
-    warn("Size of PackedStructExample: {} bytes\n", @intCast(usize, @sizeOf(PackedStructExample)));
+    print("\nExample of using a packed struct.\n", .{});
+    print("Byte: 0b{b}\n", .{ bitfield_value });
+    print("Resulting bitfield: {}\n", .{ bitfield });
+    print("Size of PackedStructExample: {} bytes\n", .{ @sizeOf(PackedStructExample) });
 }

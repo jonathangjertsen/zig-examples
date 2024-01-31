@@ -1,5 +1,6 @@
-const warn = @import("std").debug.warn;
+const std = @import("std");
+const print = std.debug.print;
 
 pub fn main() void {
-    warn("Hello, world!\n");
+    print("Hello, world!\n", .{});
 }

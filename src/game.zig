@@ -1,6 +1,6 @@
 const std = @import("std");
 const builtin = @import("builtin");
-const warn = std.debug.warn;
+const print = std.debug.print;
 
 const C = @cImport({
     @cInclude("stdlib.h");
@@ -58,8 +58,8 @@ const Board = struct {
     }
 
     pub fn clear(self: *Board) void {
-        for (self.tiles) |row, row_number| {
-            for (row) |tile, column_number| {
+        for (self.tiles, 0..) |row, row_number| {
+            for (row) |column_number| {
                 self.tiles[column_number][row_number] = .Open;
             }
         }
@@ -181,16 +181,15 @@ const Snake = struct {
         }
     }
 
-    pub fn print(self: *Snake) void {
-        warn("Snake(head: ({}, {}), len: {}, direction: {}, locations:\n", self.head.location.row, self.head.location.column, self.len(), self.direction);
-        warn("    {} <-- head", self.head.location);
+    pub fn printSnake(self: *Snake) void {
+        print("Snake(head: ({}, {}), len: {}, direction: {}, locations:\n", .{ self.head.location.row, self.head.location.column, self.len(), self.direction });
+        print("    {} <-- head", .{self.head.location});
         var segment: *SnakeSegment = self.head;
-        var result: usize = 0;
         iteration: while (true) {
             segment = segment.caudal orelse break :iteration;
-            warn("\n    {}", segment.location);
+            print("\n    {}", .{segment.location});
         }
-        warn(" <-- tail\n");
+        print(" <-- tail\n", .{});
     }
 };
 
@@ -222,7 +221,7 @@ const GameState = struct {
 
     fn moveSnake(self: *GameState, direction: Direction) !void {
         var old_tail_location: ?Location = null;
-        if (self.snake.tail) |tail| {
+        if (self.snake.tail) {
             old_tail_location = self.snake.head.location;
         }
 
@@ -274,42 +273,42 @@ const Renderer = struct {
 };
 
 pub fn clearScreen() void {
-    _ = C.system(c"cls");
+    _ = C.system("cls");
 }
 
 pub fn printGame(game: *GameState) void {
     clearScreen();
 
-    warn("Snake\n");
-    for (game.board.tiles) |row, row_number| {
-        warn("+-");
-        for (row) |tile, column_number| {
-            warn("--");
+    print("Snake\n", .{});
+    for (game.board.tiles) |row| {
+        print("+-", .{});
+        for (row) |_| {
+            print("--", .{});
         }
-        warn("-+\n");
+        print("-+\n", .{});
         break;
     }
 
-    for (game.board.tiles) |row, row_number| {
-        warn("| ");
-        for (row) |tile, column_number| {
+    for (game.board.tiles, 0..) |row, row_number| {
+        print("| ", .{});
+        for (row, 0..) |_, column_number| {
             switch (game.board.tiles[column_number][row_number]) {
-                .Open => warn("  "),
-                .SnakeBody => warn(" S"),
-                .SnakeHead => warn(" H"),
-                .Food => warn(" F"),
+                .Open => print("  "),
+                .SnakeBody => print(" S"),
+                .SnakeHead => print(" H"),
+                .Food => print(" F"),
             }
         }
-        warn(" |\n");
+        print(" |\n", .{});
     }
-    for (game.board.tiles) |row, row_number| {
-        warn("+-");
-        for (row) |tile, column_number| {
-            warn("--");
+    for (game.board.tiles) |row| {
+        print("+-", .{});
+        for (row) |_| {
+            print("--", .{});
         }
-        warn("-+\n");
-        warn("Control with WASD keys + Enter\n");
-        warn("To exit, use Ctrl + C\n");
+        print("-+\n", .{});
+        print("Control with WASD keys + Enter\n", .{});
+        print("To exit, use Ctrl + C\n", .{});
         break;
     }
 }
@@ -318,25 +317,25 @@ pub fn main() void {
     gameExample() catch |err| {
         switch (err) {
             error.GameOver => {
-                warn("You lose!\n");
+                print("You lose!\n", .{});
             },
             error.OutOfMemory => {
-                warn("Out of memory??\n");
+                print("Out of memory??\n", .{});
             },
             else => {
-                warn("Unexpected: {}\n", err);
+                print("Unexpected: {}\n", .{err});
             },
         }
-        warn("Thanks for playing!\n");
+        print("Thanks for playing!\n", .{});
     };
 }
 
-pub fn readInput(stream: var) !u8 {
+pub fn readInput(stream: anytype) !u8 {
     return try stream.readByte();
 }
 
 pub fn keyboardThread(state: *GameState) !void {
-    var input = try std.io.getStdIn();
+    var input = std.io.getStdIn();
     var input_stream = input.inStream();
 
     while (true) {
@@ -358,15 +357,15 @@ pub fn keyboardThreadWrapper(context: *GameState) void {
     keyboardThread(context) catch |err| {
         switch (err) {
             error.EndOfStream => return,
-            else => warn("{} in keyboardThread\n", err),
+            else => print("{} in keyboardThread\n", .{err}),
         }
     };
 }
 
 pub fn gameExample() !void {
-    warn("\nExample of a simple game (Snake). Press Enter to start.\n");
+    print("\nExample of a simple game (Snake). Press Enter to start.\n", .{});
 
-    var input = try std.io.getStdIn();
+    var input = std.io.getStdIn();
     var input_stream = input.inStream();
     _ = try input_stream.stream.readByte();
 
@@ -383,7 +382,7 @@ pub fn gameExample() !void {
     state.renderer = &renderer;
 
     // Keyboard input
-    var input_thread = try std.Thread.spawn(&state, keyboardThreadWrapper);
+    try std.Thread.spawn(&state, keyboardThreadWrapper);
 
     // Game loop
     try state.runGameLoop(12);

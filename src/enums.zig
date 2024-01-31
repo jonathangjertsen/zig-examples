@@ -1,5 +1,5 @@
 const std = @import("std");
-const warn = std.debug.warn;
+const print = std.debug.print;
 
 const Color = enum(i8) {
     Black = -1,
@@ -25,10 +25,10 @@ pub fn enumExample() void {
     const green: Color = .Green;
     const blue: Color = .Blue;
 
-    warn("\nExample of using an enum.\n");
-    warn("Number of colors: {}\n", @intCast(u8, @memberCount(Color)));
-    warn("black: {}, ordinal value: {}, is primary: {}\n", black, @enumToInt(black), Color.isPrimaryColor(black));
-    warn("red: {}, ordinal value: {}, is primary: {}\n", red, @enumToInt(red), Color.isPrimaryColor(red));
-    warn("green: {}, ordinal value: {}, is primary: {}\n", green, @enumToInt(green), Color.isPrimaryColor(green));
-    warn("blue: {}, ordinal value: {}, is primary: {}\n", blue, @enumToInt(blue), Color.isPrimaryColor(blue));
+    print("\nExample of using an enum.\n", .{});
+    print("Number of colors: {}\n", .{ @typeInfo(Color).Enum.fields.len });
+    print("black: {}, ordinal value: {}, is primary: {}\n", .{ black, @intFromEnum(black), Color.isPrimaryColor(black) });
+    print("red: {}, ordinal value: {}, is primary: {}\n", .{ red, @intFromEnum(red), Color.isPrimaryColor(red) });
+    print("green: {}, ordinal value: {}, is primary: {}\n", .{ green, @intFromEnum(green), Color.isPrimaryColor(green) });
+    print("blue: {}, ordinal value: {}, is primary: {}\n", .{ blue, @intFromEnum(blue), Color.isPrimaryColor(blue) });
 }

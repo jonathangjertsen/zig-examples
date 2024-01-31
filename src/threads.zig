@@ -1,5 +1,5 @@
 const std = @import("std");
-const warn = std.debug.warn;
+const print = std.debug.print;
 
 // Anything can be passed as the first argument (`context`) to spawn.
 // Wrapping it up in a struct seems like a good idea.
@@ -27,10 +27,10 @@ pub fn threadExample() !void {
     const context_1: CustomThreadContext = CustomThreadContext.init(1);
     const context_2: CustomThreadContext = CustomThreadContext.init(2);
 
-    const thread_1: *std.Thread = try std.Thread.spawn(context_1, threadCallback);
-    const thread_2: *std.Thread = try std.Thread.spawn(context_2, threadCallback);
+    const thread_1: *std.Thread = try std.Thread.spawn(context_1, threadCallback, .{});
+    const thread_2: *std.Thread = try std.Thread.spawn(context_2, threadCallback, .{});
 
-    warn("\nExample using threads.\n");
+    print("\nExample using threads.\n", .{});
     thread_1.wait();
     thread_2.wait();
 }
@@ -38,5 +38,5 @@ pub fn threadExample() !void {
 // Might not be the best idea to print from a thread.
 pub fn threadCallback(context: CustomThreadContext) void {
     thread_local_variable += context.number_to_add_to_thread_local_variable;
-    warn("From thread #{}: thread_local_variable: {}\n", context.thread_id, thread_local_variable);
+    print("From thread #{}: thread_local_variable: {}\n", .{ context.thread_id, thread_local_variable });
 }

@@ -1,12 +1,12 @@
 const std = @import("std");
-const warn = std.debug.warn;
+const print = std.debug.print;
 
 pub fn main() void {
     embedExample();
 }
 
 pub fn embedExample() void {
-    warn("\nExample which reads a file at compile time.\n");
-    const message: []const u8 = @embedFile("../assets/embed-file-example.txt");
-    warn("Contents of embedded file: {}\n", message);
+    print("\nExample which reads a file at compile time.\n", .{});
+    const message: []const u8 = @embedFile("embed-file-example.txt");
+    print("Contents of embedded file: {s}\n", .{ message });
 }

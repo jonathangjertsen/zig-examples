@@ -3,54 +3,60 @@ const std = @import("std");
 const builtin = @import("builtin");
 const fmt = std.fmt;
 
-pub fn buildSimple(builder: *std.build.Builder, name: []const u8) void {
-    // Release options
-    const mode: builtin.Mode = builder.standardReleaseOptions();
-
+pub fn buildSimple(
+    builder: *std.Build,
+    target: std.zig.CrossTarget,
+    optimize: std.builtin.Mode,
+    name: []const u8,
+) void {
     // Create the executable
-    const exe: *std.build.LibExeObjStep = builder.addExecutable(name, builder.fmt("src/{}.zig", name));
+    const exe = builder.addExecutable(.{
+        .name = name,
+        .root_source_file = .{ .path = builder.fmt("src/{s}.zig", .{ name }) },
+        .target = target,
+        .optimize = optimize,
+    });
 
     // Link with C
     exe.linkSystemLibrary("c");
 
-    // Set build mode to release options
-    exe.setBuildMode(mode);
-
     // TODO: not sure what this step does.
-    exe.install();
+    builder.installArtifact(exe);
 
     // Create a command to run the executable
-    const run_cmd: *std.build.RunStep = exe.run();
+    const run_cmd = builder.addRunArtifact(exe);
 
     // Make the run command depend on the generic install step?
-    const builder_install_step: *std.build.Step = builder.getInstallStep();
+    const builder_install_step = builder.getInstallStep();
     run_cmd.step.dependOn(builder_install_step);
 
     // Create a step to run?
-    const run_step: *std.build.Step = builder.step(builder.fmt("run-{}", name), builder.fmt("Run the {} example", name));
+    const run_step = builder.step(builder.fmt("run-{s}", .{name}), builder.fmt("Run the {s} example", .{name}));
 
     // Make the run step depend on the run command?
     run_step.dependOn(&run_cmd.step);
 }
 
-pub fn build(builder: *std.build.Builder) void {
-    buildSimple(builder, "all");
-    buildSimple(builder, "allocators");
-    buildSimple(builder, "booleans");
-    buildSimple(builder, "c_interop");
-    buildSimple(builder, "control_flow");
-    buildSimple(builder, "coroutines");
-    buildSimple(builder, "embed");
-    buildSimple(builder, "enums");
-    buildSimple(builder, "floats");
-    buildSimple(builder, "hello");
-    buildSimple(builder, "integers");
-    buildSimple(builder, "optionals");
-    buildSimple(builder, "random");
-    buildSimple(builder, "strings");
-    buildSimple(builder, "structs");
-    buildSimple(builder, "time");
-    buildSimple(builder, "threads");
-    buildSimple(builder, "vectors");
-    buildSimple(builder, "game");
+pub fn build(builder: *std.Build) void {
+    const target = builder.standardTargetOptions(.{});
+    const optimize = builder.standardOptimizeOption(.{});
+
+    // doesn't build: buildSimple(builder, target, optimize, "all");
+    // doesn't build: buildSimple(builder, target, optimize, "allocators");
+    buildSimple(builder, target, optimize, "booleans");
+    buildSimple(builder, target, optimize, "c_interop");
+    buildSimple(builder, target, optimize, "control_flow");
+    buildSimple(builder, target, optimize, "embed");
+    buildSimple(builder, target, optimize, "enums");
+    buildSimple(builder, target, optimize, "floats");
+    buildSimple(builder, target, optimize, "hello");
+    buildSimple(builder, target, optimize, "integers");
+    buildSimple(builder, target, optimize, "optionals");
+    // segfaults: buildSimple(builder, target, optimize, "random");
+    buildSimple(builder, target, optimize, "strings");
+    buildSimple(builder, target, optimize, "structs");
+    buildSimple(builder, target, optimize, "time");
+    // doesn't build: buildSimple(builder, target, optimize, "threads");
+    buildSimple(builder, target, optimize, "vectors");
+    // doesn't build: buildSimple(builder, target, optimize, "game");
 }

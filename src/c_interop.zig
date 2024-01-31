@@ -1,5 +1,5 @@
 const std = @import("std");
-const warn = std.debug.warn;
+const print = std.debug.print;
 
 const C = @cImport({
     // See https://github.com/ziglang/zig/issues/515
@@ -12,6 +12,6 @@ pub fn main() void {
 }
 
 pub fn callCExample() void {
-    warn("\nExample of calling a C function.\n");
-    _ = C.printf(c"Hello, C!\n");
+    print("\nExample of calling a C function.\n", .{});
+    _ = C.printf("Hello, C!\n");
 }
